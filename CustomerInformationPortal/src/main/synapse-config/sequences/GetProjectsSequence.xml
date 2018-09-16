@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GetProjectsSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="xml">
+        <format>
+            <m0:GetProjects xmlns:m0="http://ws.wso2.org/dataservice">
+                <m0:request/>
+            </m0:GetProjects>
+        </format>
+        <args/>
+    </payloadFactory>
+    <header name="Action" scope="default" value="urn:_getclients"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

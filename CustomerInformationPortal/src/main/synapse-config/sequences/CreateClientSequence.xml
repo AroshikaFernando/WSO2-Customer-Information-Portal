@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CreateClientSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="ClientName" expression="json-eval($.CreateClient.ClientName)" name="ClientName" scope="default" type="STRING"/>
+    <property description="Description" expression="json-eval($.CreateClient.Description)" name="Description" scope="default" type="STRING"/>
+    <property description="user" expression="json-eval($.CreateClient.user)" name="user" scope="default" type="STRING"/>
+    <property description="AccountOwner" expression="json-eval($.CreateClient.AccountOwner)" name="AccountOwner" scope="default" type="STRING"/>
+    <property description="TechnicalOwner" expression="json-eval($.CreateClient.TechnicalOwner)" name="TechnicalOwner" scope="default" type="STRING"/>
+    <property description="SupportOwner" expression="json-eval($.CreateClient.SupportOwner)" name="SupportOwner" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:CreateClient xmlns:p="http://ws.wso2.org/dataservice">
+                <p:ClientName>$1</p:ClientName>
+                <p:Description>$2</p:Description>
+                <p:user>$3</p:user>
+                <p:AccountOwner>$4</p:AccountOwner>
+                <p:TechnicalOwner>$5</p:TechnicalOwner>
+                <p:SupportOwner>$6</p:SupportOwner>
+            </p:CreateClient>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:Description"/>
+            <arg evaluator="xml" expression="$ctx:user"/>
+            <arg evaluator="xml" expression="$ctx:AccountOwner"/>
+            <arg evaluator="xml" expression="$ctx:TechnicalOwner"/>
+            <arg evaluator="xml" expression="$ctx:SupportOwner"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:AddClient"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

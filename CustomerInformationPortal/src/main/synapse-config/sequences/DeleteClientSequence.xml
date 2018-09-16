@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="DeleteClientSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="clientName" expression="json-eval($.ClientDelete.clientName)" name="clientName" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:ClientDelete xmlns:p="http://ws.wso2.org/dataservice">
+                <p:clientName>$1</p:clientName>
+            </p:ClientDelete>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:ClientDelete"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

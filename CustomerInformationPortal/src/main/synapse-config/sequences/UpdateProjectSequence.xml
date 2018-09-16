@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="UpdateProjectSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="ProjectName" expression="json-eval($.UpdateProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+    <property description="Description" expression="json-eval($.UpdateProject.Description)" name="Description" scope="default" type="STRING"/>
+    <property description="ClientName" expression="json-eval($.UpdateProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+    <property description="OldProjectName" expression="json-eval($.UpdateProject.OldProjectName)" name="OldProjectName" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:UpdateProject xmlns:p="http://ws.wso2.org/dataservice">
+                <p:ProjectName>$1</p:ProjectName>
+                <p:Description>$2</p:Description>
+                <p:ClientName>$3</p:ClientName>
+                <p:OldProjectName>$4</p:OldProjectName>
+            </p:UpdateProject>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:Description"/>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:OldProjectName"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:UpdateProject"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

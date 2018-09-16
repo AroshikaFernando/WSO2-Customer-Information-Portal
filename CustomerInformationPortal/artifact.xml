@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CustomerStoreAPI" groupId="com.example.CustomerInformationPortal.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/CustomerStoreAPI.xml</file>
+    </artifact>
+    <artifact name="CreateClientSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CreateClientSequence.xml</file>
+    </artifact>
+    <artifact name="DeleteClientSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/DeleteClientSequence.xml</file>
+    </artifact>
+    <artifact name="UpdateClientSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/UpdateClientSequence.xml</file>
+    </artifact>
+    <artifact name="CreateProjectSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/CreateProjectSequence.xml</file>
+    </artifact>
+    <artifact name="DeleteProjectSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/DeleteProjectSequence.xml</file>
+    </artifact>
+    <artifact name="UpdateProjectSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/UpdateProjectSequence.xml</file>
+    </artifact>
+    <artifact name="_getclientsSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/_getclientsSequence.xml</file>
+    </artifact>
+    <artifact name="GetProjectsSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetProjectsSequence.xml</file>
+    </artifact>
+    <artifact name="GetClientsSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetClientsSequence.xml</file>
+    </artifact>
+    <artifact name="GetProjectsByClientSequence" groupId="com.example.CustomerInformationPortal.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/GetProjectsByClientSequence.xml</file>
+    </artifact>
+</artifacts>

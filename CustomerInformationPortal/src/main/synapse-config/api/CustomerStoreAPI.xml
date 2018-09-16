@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/WSO2CustomerStore" name="CustomerStoreAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" url-mapping="/CreateClient/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.CreateClient.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.CreateClient.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.CreateClient.user)" name="user" scope="default" type="STRING"/>
+            <property description="AccountOwner" expression="json-eval($.CreateClient.AccountOwner)" name="AccountOwner" scope="default" type="STRING"/>
+            <property description="TechnicalOwner" expression="json-eval($.CreateClient.TechnicalOwner)" name="TechnicalOwner" scope="default" type="STRING"/>
+            <property description="SupportOwner" expression="json-eval($.CreateClient.SupportOwner)" name="SupportOwner" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:CreateClient xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:Description>$2</p:Description>
+                        <p:user>$3</p:user>
+                        <p:AccountOwner>$4</p:AccountOwner>
+                        <p:TechnicalOwner>$5</p:TechnicalOwner>
+                        <p:SupportOwner>$6</p:SupportOwner>
+                    </p:CreateClient>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                    <arg evaluator="xml" expression="$ctx:AccountOwner"/>
+                    <arg evaluator="xml" expression="$ctx:TechnicalOwner"/>
+                    <arg evaluator="xml" expression="$ctx:SupportOwner"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:AddClient"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/ClientDelete/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="clientName" expression="json-eval($.ClientDelete.clientName)" name="clientName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:ClientDelete xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:clientName>$1</p:clientName>
+                    </p:ClientDelete>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:clientName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:ClientDelete"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/UpdateClient/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.UpdateClient.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.UpdateClient.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="AccountOwner" expression="json-eval($.UpdateClient.AccountOwner)" name="AccountOwner" scope="default" type="STRING"/>
+            <property description="TechnicalOwner" expression="json-eval($.UpdateClient.TechnicalOwner)" name="TechnicalOwner" scope="default" type="STRING"/>
+            <property description="SupportOwner" expression="json-eval($.UpdateClient.SupportOwner)" name="SupportOwner" scope="default" type="STRING"/>
+            <property description="OldClientName" expression="json-eval($.UpdateClient.OldClientName)" name="OldClientName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:UpdateClient xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:Description>$2</p:Description>
+                        <p:AccountOwner>$3</p:AccountOwner>
+                        <p:TechnicalOwner>$4</p:TechnicalOwner>
+                        <p:SupportOwner>$5</p:SupportOwner>
+                        <p:OldClientName>$6</p:OldClientName>
+                    </p:UpdateClient>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:AccountOwner"/>
+                    <arg evaluator="xml" expression="$ctx:TechnicalOwner"/>
+                    <arg evaluator="xml" expression="$ctx:SupportOwner"/>
+                    <arg evaluator="xml" expression="$ctx:OldClientName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:UpdateClient"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/CreateProject/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.CreateProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.CreateProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.CreateProject.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.CreateProject.user)" name="user" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:CreateProject xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:Description>$3</p:Description>
+                        <p:user>$4</p:user>
+                    </p:CreateProject>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:CreateProject"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/DeleteProject/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.DeleteProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.DeleteProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:DeleteProject xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                    </p:DeleteProject>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:DeleteProject"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/UpdateProject/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ProjectName" expression="json-eval($.UpdateProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.UpdateProject.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="ClientName" expression="json-eval($.UpdateProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="OldProjectName" expression="json-eval($.UpdateProject.OldProjectName)" name="OldProjectName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:UpdateProject xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ProjectName>$1</p:ProjectName>
+                        <p:Description>$2</p:Description>
+                        <p:ClientName>$3</p:ClientName>
+                        <p:OldProjectName>$4</p:OldProjectName>
+                    </p:UpdateProject>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:OldProjectName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:UpdateProject"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/_getclients">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <m0:_getclients xmlns:m0="http://ws.wso2.org/dataservice">
+                        <m0:request/>
+                    </m0:_getclients>
+                </format>
+                <args/>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:_getclients"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetProjects">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <m0:GetProjects xmlns:m0="http://ws.wso2.org/dataservice">
+                        <m0:request/>
+                    </m0:GetProjects>
+                </format>
+                <args/>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetProjects"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetClients">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <m0:GetClients xmlns:m0="http://ws.wso2.org/dataservice">
+                        <m0:request/>
+                    </m0:GetClients>
+                </format>
+                <args/>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetClients"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetProjectsByClient/{ClientName}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <dat:GetProjectsByClient xmlns:dat="http://ws.wso2.org/dataservice">
+                        <dat:ClientName>$1</dat:ClientName>
+                    </dat:GetProjectsByClient>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.ClientName')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetProjectsByClient"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Comment_insert/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.Comment_insert.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.Comment_insert.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="Message" expression="json-eval($.Comment_insert.Message)" name="Message" scope="default" type="STRING"/>
+            <property description="CommentBy" expression="json-eval($.Comment_insert.CommentBy)" name="CommentBy" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Comment_insert xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:Message>$3</p:Message>
+                        <p:CommentBy>$4</p:CommentBy>
+                    </p:Comment_insert>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:Message"/>
+                    <arg evaluator="xml" expression="$ctx:CommentBy"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Comment_insert"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Comment_delete/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="Id" expression="json-eval($.Comment_delete.Id)" name="Id" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Comment_delete xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:Id>$1</p:Id>
+                    </p:Comment_delete>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:Id"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Comment_delete"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/CreateResource/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.CreateResource.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.CreateResource.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="ResourceName" expression="json-eval($.CreateResource.ResourceName)" name="ResourceName" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.CreateResource.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="Data" expression="json-eval($.CreateResource.Data)" name="Data" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.CreateResource.user)" name="user" scope="default" type="STRING"/>
+            <property description="VisibilityRole" expression="json-eval($.CreateResource.VisibilityRole)" name="VisibilityRole" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:CreateResource xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:ResourceName>$3</p:ResourceName>
+                        <p:Description>$4</p:Description>
+                        <p:Data>$5</p:Data>
+                        <p:user>$6</p:user>
+                        <p:VisibilityRole>$7</p:VisibilityRole>
+                    </p:CreateResource>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:ResourceName"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:Data"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                    <arg evaluator="xml" expression="$ctx:VisibilityRole"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:CreateResource"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/deleteResource/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.deleteResource.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.deleteResource.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="ResourceName" expression="json-eval($.deleteResource.ResourceName)" name="ResourceName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:deleteResource xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:ResourceName>$3</p:ResourceName>
+                    </p:deleteResource>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:ResourceName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:deleteResource"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/CreateSupportAccount/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.CreateSupportAccount.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.CreateSupportAccount.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="jiraID" expression="json-eval($.CreateSupportAccount.jiraID)" name="jiraID" scope="default" type="STRING"/>
+            <property description="Name" expression="json-eval($.CreateSupportAccount.Name)" name="Name" scope="default" type="STRING"/>
+            <property description="Category" expression="json-eval($.CreateSupportAccount.Category)" name="Category" scope="default" type="STRING"/>
+            <property description="StartDate" expression="json-eval($.CreateSupportAccount.StartDate)" name="StartDate" scope="default" type="STRING"/>
+            <property description="EndDate" expression="json-eval($.CreateSupportAccount.EndDate)" name="EndDate" scope="default" type="STRING"/>
+            <property description="AccountManager" expression="json-eval($.CreateSupportAccount.AccountManager)" name="AccountManager" scope="default" type="STRING"/>
+            <property description="Lead" expression="json-eval($.CreateSupportAccount.Lead)" name="Lead" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.CreateSupportAccount.user)" name="user" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:CreateSupportAccount xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:jiraID>$3</p:jiraID>
+                        <p:Name>$4</p:Name>
+                        <p:Category>$5</p:Category>
+                        <p:StartDate>$6</p:StartDate>
+                        <p:EndDate>$7</p:EndDate>
+                        <p:AccountManager>$8</p:AccountManager>
+                        <p:Lead>$9</p:Lead>
+                        <p:user>$10</p:user>
+                    </p:CreateSupportAccount>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:jiraID"/>
+                    <arg evaluator="xml" expression="$ctx:Name"/>
+                    <arg evaluator="xml" expression="$ctx:Category"/>
+                    <arg evaluator="xml" expression="$ctx:StartDate"/>
+                    <arg evaluator="xml" expression="$ctx:EndDate"/>
+                    <arg evaluator="xml" expression="$ctx:AccountManager"/>
+                    <arg evaluator="xml" expression="$ctx:Lead"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:CreateSupportAccount"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/DeleteSupportAccount/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.DeleteSupportAccount.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.DeleteSupportAccount.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="jiraID" expression="json-eval($.DeleteSupportAccount.jiraID)" name="jiraID" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:DeleteSupportAccount xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:jiraID>$3</p:jiraID>
+                    </p:DeleteSupportAccount>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:jiraID"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:DeleteSupportAccount"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Deployment_add/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.Deployment_add.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.Deployment_add.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="DeploymentName" expression="json-eval($.Deployment_add.DeploymentName)" name="DeploymentName" scope="default" type="STRING"/>
+            <property description="Location" expression="json-eval($.Deployment_add.Location)" name="Location" scope="default" type="STRING"/>
+            <property description="Description" expression="json-eval($.Deployment_add.Description)" name="Description" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.Deployment_add.user)" name="user" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Deployment_add xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:DeploymentName>$3</p:DeploymentName>
+                        <p:Location>$4</p:Location>
+                        <p:Description>$5</p:Description>
+                        <p:user>$6</p:user>
+                    </p:Deployment_add>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:DeploymentName"/>
+                    <arg evaluator="xml" expression="$ctx:Location"/>
+                    <arg evaluator="xml" expression="$ctx:Description"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Deployment_add"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Deployment_Delete/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.Deployment_Delete.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.Deployment_Delete.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="DeploymentName" expression="json-eval($.Deployment_Delete.DeploymentName)" name="DeploymentName" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Deployment_Delete xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:DeploymentName>$3</p:DeploymentName>
+                    </p:Deployment_Delete>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:DeploymentName"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Deployment_Delete"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Comment_update/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="Message" expression="json-eval($.Comment_update.Message)" name="Message" scope="default" type="STRING"/>
+            <property description="Id" expression="json-eval($.Comment_update.Id)" name="Id" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Comment_update xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:Message>$1</p:Message>
+                        <p:Id>$2</p:Id>
+                    </p:Comment_update>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:Message"/>
+                    <arg evaluator="xml" expression="$ctx:Id"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Comment_update"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/CreateEngagement/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="ClientName" expression="json-eval($.CreateEngagement.ClientName)" name="ClientName" scope="default" type="STRING"/>
+            <property description="ProjectName" expression="json-eval($.CreateEngagement.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+            <property description="EngagementKey" expression="json-eval($.CreateEngagement.EngagementKey)" name="EngagementKey" scope="default" type="STRING"/>
+            <property description="user" expression="json-eval($.CreateEngagement.user)" name="user" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:CreateEngagement xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                        <p:EngagementKey>$3</p:EngagementKey>
+                        <p:user>$4</p:user>
+                    </p:CreateEngagement>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ClientName"/>
+                    <arg evaluator="xml" expression="$ctx:ProjectName"/>
+                    <arg evaluator="xml" expression="$ctx:EngagementKey"/>
+                    <arg evaluator="xml" expression="$ctx:user"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:CreateEngagement"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetEngagements/{ClientName}/{ProjectName}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:GetEngagements xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                        <p:ProjectName>$2</p:ProjectName>
+                    </p:GetEngagements>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.ClientName')"/>
+                    <arg evaluator="xml" expression="get-property('uri.var.ProjectName')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetEngagements"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/SearchClient/{ClientNamePattern}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:SearchClient xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientNamePattern>$1</p:ClientNamePattern>
+                    </p:SearchClient>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.ClientNamePattern')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:SearchClient"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/Data_product_versions_get/{Product}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Data_product_versions_get xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:Product>$1</p:Product>
+                    </p:Data_product_versions_get>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.Product')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:Data_product_versions_get"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/Data_product_WUM_Level_get/{Product}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Data_product_WUM_Level_get xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:Product>$1</p:Product>
+                    </p:Data_product_WUM_Level_get>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.Product')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:Data_product_WUM_Level_get"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Data_product_add/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="product" expression="json-eval($.Data_product_add.product)" name="product" scope="default" type="STRING"/>
+            <property description="version" expression="json-eval($.Data_product_add.version)" name="version" scope="default" type="STRING"/>
+            <property description="WUM_Level" expression="json-eval($.Data_product_add.WUM_Level)" name="WUM_Level" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Data_product_add xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:product>$1</p:product>
+                        <p:version>$2</p:version>
+                        <p:WUM_Level>$3</p:WUM_Level>
+                    </p:Data_product_add>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:product"/>
+                    <arg evaluator="xml" expression="$ctx:version"/>
+                    <arg evaluator="xml" expression="$ctx:WUM_Level"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Data_product_add"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Data_product_update/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="product" expression="json-eval($.Data_product_update.product)" name="product" scope="default" type="STRING"/>
+            <property description="version" expression="json-eval($.Data_product_update.version)" name="version" scope="default" type="STRING"/>
+            <property description="WUM_Level" expression="json-eval($.Data_product_update.WUM_Level)" name="WUM_Level" scope="default" type="STRING"/>
+            <property description="OldProduct" expression="json-eval($.Data_product_update.OldProduct)" name="OldProduct" scope="default" type="STRING"/>
+            <property description="OldVersion" expression="json-eval($.Data_product_update.OldVersion)" name="OldVersion" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Data_product_update xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:product>$1</p:product>
+                        <p:version>$2</p:version>
+                        <p:WUM_Level>$3</p:WUM_Level>
+                        <p:OldProduct>$4</p:OldProduct>
+                        <p:OldVersion>$5</p:OldVersion>
+                    </p:Data_product_update>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:product"/>
+                    <arg evaluator="xml" expression="$ctx:version"/>
+                    <arg evaluator="xml" expression="$ctx:WUM_Level"/>
+                    <arg evaluator="xml" expression="$ctx:OldProduct"/>
+                    <arg evaluator="xml" expression="$ctx:OldVersion"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Data_product_update"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" url-mapping="/Data_product_delete/*">
+        <inSequence>
+            <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+            <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+            <property description="product" expression="json-eval($.Data_product_delete.product)" name="product" scope="default" type="STRING"/>
+            <property description="version" expression="json-eval($.Data_product_delete.version)" name="version" scope="default" type="STRING"/>
+            <log level="full"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:Data_product_delete xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:product>$1</p:product>
+                        <p:version>$2</p:version>
+                    </p:Data_product_delete>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:product"/>
+                    <arg evaluator="xml" expression="$ctx:version"/>
+                </args>
+            </payloadFactory>
+            <log description="" level="full"/>
+            <header name="Action" scope="default" value="urn:Data_product_delete"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetClientsCount/{ClientName}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:GetClientsCount xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ClientName>$1</p:ClientName>
+                    </p:GetClientsCount>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.ClientName')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetClientsCount"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/GetProjectCount/{ProjectName}">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:GetProjectCount xmlns:p="http://ws.wso2.org/dataservice">
+                        <p:ProjectName>$1</p:ProjectName>
+                    </p:GetProjectCount>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('uri.var.ProjectName')"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:GetProjectCount"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="http://localhost:9764/services/CustomerStore"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="full"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="UpdateClientSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="ClientName" expression="json-eval($.UpdateClient.ClientName)" name="ClientName" scope="default" type="STRING"/>
+    <property description="Description" expression="json-eval($.UpdateClient.Description)" name="Description" scope="default" type="STRING"/>
+    <property description="AccountOwner" expression="json-eval($.UpdateClient.AccountOwner)" name="AccountOwner" scope="default" type="STRING"/>
+    <property description="TechnicalOwner" expression="json-eval($.UpdateClient.TechnicalOwner)" name="TechnicalOwner" scope="default" type="STRING"/>
+    <property description="SupportOwner" expression="json-eval($.UpdateClient.SupportOwner)" name="SupportOwner" scope="default" type="STRING"/>
+    <property description="OldClientName" expression="json-eval($.UpdateClient.OldClientName)" name="OldClientName" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:UpdateClient xmlns:p="http://ws.wso2.org/dataservice">
+                <p:ClientName>$1</p:ClientName>
+                <p:Description>$2</p:Description>
+                <p:AccountOwner>$3</p:AccountOwner>
+                <p:TechnicalOwner>$4</p:TechnicalOwner>
+                <p:SupportOwner>$5</p:SupportOwner>
+                <p:OldClientName>$6</p:OldClientName>
+            </p:UpdateClient>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:Description"/>
+            <arg evaluator="xml" expression="$ctx:AccountOwner"/>
+            <arg evaluator="xml" expression="$ctx:TechnicalOwner"/>
+            <arg evaluator="xml" expression="$ctx:SupportOwner"/>
+            <arg evaluator="xml" expression="$ctx:OldClientName"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:UpdateClient"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

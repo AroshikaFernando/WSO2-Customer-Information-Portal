@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CreateProjectSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="ClientName" expression="json-eval($.CreateProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+    <property description="ProjectName" expression="json-eval($.CreateProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+    <property description="Description" expression="json-eval($.CreateProject.Description)" name="Description" scope="default" type="STRING"/>
+    <property description="user" expression="json-eval($.CreateProject.user)" name="user" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:CreateProject xmlns:p="http://ws.wso2.org/dataservice">
+                <p:ClientName>$1</p:ClientName>
+                <p:ProjectName>$2</p:ProjectName>
+                <p:Description>$3</p:Description>
+                <p:user>$4</p:user>
+            </p:CreateProject>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:ProjectName"/>
+            <arg evaluator="xml" expression="$ctx:Description"/>
+            <arg evaluator="xml" expression="$ctx:user"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:CreateProject"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>

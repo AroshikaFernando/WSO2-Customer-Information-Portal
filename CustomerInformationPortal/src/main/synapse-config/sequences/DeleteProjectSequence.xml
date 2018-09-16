@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="DeleteProjectSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+    <property description="ClientName" expression="json-eval($.DeleteProject.ClientName)" name="ClientName" scope="default" type="STRING"/>
+    <property description="ProjectName" expression="json-eval($.DeleteProject.ProjectName)" name="ProjectName" scope="default" type="STRING"/>
+    <log level="full"/>
+    <payloadFactory media-type="xml">
+        <format>
+            <p:DeleteProject xmlns:p="http://ws.wso2.org/dataservice">
+                <p:ClientName>$1</p:ClientName>
+                <p:ProjectName>$2</p:ProjectName>
+            </p:DeleteProject>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:ClientName"/>
+            <arg evaluator="xml" expression="$ctx:ProjectName"/>
+        </args>
+    </payloadFactory>
+    <log description="" level="full"/>
+    <header name="Action" scope="default" value="urn:DeleteProject"/>
+    <send>
+        <endpoint>
+            <address format="soap11" uri="http://localhost:9763/services/CustomerStore"/>
+        </endpoint>
+    </send>
+</sequence>
